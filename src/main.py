@@ -59,16 +59,16 @@ def separate(args, all_configs):
     if not os.path.exists(args.save_dir):
         os.makedirs(args.save_dir)
 
-    for key in all_configs.keys():
+    for key in list(all_configs.keys()):
         if not os.path.exists(os.path.join(args.save_dir, key)):
             os.mkdir(os.path.join(args.save_dir, key))
             
     random.seed(args.seed)
     np.random.seed(args.seed)
 
-    for key in all_configs.keys():
+    for key in list(all_configs.keys()):
         acc = 0
-        for k in tqdm(range(args.num_samples), key):
+        for k in tqdm(list(range(args.num_samples)), key):
             count_num = k % 10
             if count_num < (10 - args.val - args.test):
                 set_name = "train"
@@ -167,7 +167,7 @@ def separate(args, all_configs):
             if args.save:
                 zipped = list(zip(candidates, answers_imgs))
                 random.shuffle(zipped)
-                candidates, answers_imgs = zip(*zipped)
+                candidates, answers_imgs = list(zip(*zipped))
 
                 image = imgs[0:8] + list(answers_imgs)
                 target = candidates.index(answer_AoT)
@@ -204,11 +204,11 @@ def original_raven(modifiable_attr, answer_AoT, rule_groups, context):
         ok = True
         new_answer_score, _ = solve(rule_groups, context, [new_answer])
         if new_answer_score >= answer_score:
-            print 'Warning - Accidentally generated good answer - resampling'
+            print('Warning - Accidentally generated good answer - resampling')      #@Jona: How TF were these brackets missing?!? --- oohhh, is that Python 2?
             ok = False
         for i in range(0, len(answers_imgs)):
             if (new_answer_img == answers_imgs[i]).all():
-                print 'Warning - New answer equals existing image - resampling'
+                print('Warning - New answer equals existing image - resampling')
                 ok = False
 
         if ok:
@@ -233,7 +233,7 @@ def fair_raven(modifiable_attr, answer_AoT, rule_groups, context):
     try:
         while len(candidates) < 8:
             while True:
-                indices = random.sample(range(len(candidates)), k=len(candidates))
+                indices = random.sample(list(range(len(candidates))), k=len(candidates))
                 timeout_flag = False
                 for idx in indices:
                     if len(attrs[idx]) > 0:
@@ -241,7 +241,7 @@ def fair_raven(modifiable_attr, answer_AoT, rule_groups, context):
                         break
                 if timeout_flag:
                     break
-                    print 'No option to continue'
+                    print('No option to continue')
                 raise Exception('No option to continue')
 
             attr_i = attrs[idx]
@@ -255,17 +255,17 @@ def fair_raven(modifiable_attr, answer_AoT, rule_groups, context):
                     new_answer.sample_new(component_idx, attr_name, min_level, max_level, candidate_i)
                     new_attr = sample_attr_avail(rule_groups, new_answer)
             except Exception as e:
-                print 'Attempt to sample failed - recovering'
+                print('Attempt to sample failed - recovering')
                 print(e)
                 print(idxs)
-                print(component_idx, attr_name, min_level, max_level)
+                print((component_idx, attr_name, min_level, max_level))
                 for attr in attr_i:
                     print(attr)
                 print(blacklist_i)
                 continue
 
             new_blacklist = copy.deepcopy(blacklist_i) + [attr_name]
-            for i in reversed(range(len(new_attr))):
+            for i in reversed(list(range(len(new_attr)))):
                 if new_attr[i][1] in new_blacklist:
                     new_attr.pop(i)
 
@@ -273,11 +273,11 @@ def fair_raven(modifiable_attr, answer_AoT, rule_groups, context):
             ok = True
             new_answer_score, _ = solve(rule_groups, context, [new_answer])
             if new_answer_score >= answer_score:
-                print 'Warning - Accidentally generated good answer - resampling'
+                print('Warning - Accidentally generated good answer - resampling')
                 ok = False
             for i in range(0, len(answers_imgs)):
                 if (new_answer_img == answers_imgs[i]).all():
-                    print 'Warning - New answer equals existing image - resampling'
+                    print('Warning - New answer equals existing image - resampling')
                     ok = False
             if ok:
                 idxs.append(idx)

@@ -85,7 +85,8 @@ def rle_encode(img):
     pixels = img.flatten()
     pixels = np.concatenate([[0], pixels, [0]])
     runs = np.where(pixels[1:] != pixels[:-1])[0] + 1
-    runs[1::2] -= runs[::2]
+    # runs[1::2] -= runs[::2]
+    runs[1::2] -= runs[:-1:2]       #@Jona: Either lost ins 2to3 translation, or this should've been copy-pasted better...
     return "[" + ",".join(str(x) for x in runs) + "]"
  
 

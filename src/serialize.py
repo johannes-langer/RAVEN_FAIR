@@ -117,4 +117,4 @@ def dom_problem(instances, rule_groups):
             rule_j = ET.SubElement(rule_group_i, "Rule")
             rule_j.set("name", rule.name)
             rule_j.set("attr", rule.attr)
-    return ET.tostring(data)
+    return ET.tostring(data, encoding = 'unicode')
