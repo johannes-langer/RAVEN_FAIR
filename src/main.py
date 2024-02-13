@@ -70,12 +70,12 @@ def separate(args, all_configs):
         acc = 0
         for k in tqdm(list(range(args.num_samples)), key):
             count_num = k % 10
-            if count_num < (10 - args.val - args.test):
-                set_name = "train"
-            elif count_num < (10 - args.test):
-                set_name = "val"
-            else:
-                set_name = "test"
+            # if count_num < (10 - args.val - args.test):
+            #     set_name = "train"
+            # elif count_num < (10 - args.test):
+            #     set_name = "val"
+            # else:
+            #     set_name = "test"
 
             root = all_configs[key]
             while True:
@@ -174,7 +174,8 @@ def separate(args, all_configs):
                 _, predicted = solve(rule_groups, context, candidates)
                 meta_matrix, meta_target = serialize_rules(rule_groups)
                 structure, meta_structure = serialize_aot(start_node)
-                np.savez_compressed("{}/{}/RAVEN_{}_{}.npz".format(args.save_dir, key, k, set_name), image=image,
+                # np.savez_compressed("{}/{}/RAVEN_{}_{}.npz".format(args.save_dir, key, k, set_name), image=image,
+                np.savez_compressed('{}/{}/RAVEN_{}.npz'.format(args.save_dir, key, k), image=image,
                                     target=target,
                                     predict=predicted,
                                     meta_matrix=meta_matrix,
@@ -182,7 +183,8 @@ def separate(args, all_configs):
                                     structure=structure,
                                     meta_structure=meta_structure)
 
-                with open("{}/{}/RAVEN_{}_{}.xml".format(args.save_dir, key, k, set_name), "w") as f:
+                # with open("{}/{}/RAVEN_{}_{}.xml".format(args.save_dir, key, k, set_name), "w") as f:
+                with open('{}/{}/RAVEN_{}.xml'.format(args.save_dir, key, k), 'w') as f:
                     dom = dom_problem(context + list(candidates), rule_groups)
                     f.write(dom)
 
