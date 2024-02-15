@@ -7,6 +7,7 @@ import cv2
 import numpy as np
 from const import DEFAULT_WIDTH, IMAGE_SIZE
 from rendering import render_entity
+from itertools import groupby
 
 
 class Bunch:
@@ -104,3 +105,27 @@ def rle_decode(mask_rle, shape):
     for lo, hi in zip(starts, ends):
         img[lo:hi] = 1
     return img.reshape(shape)
+
+
+def coco_rle(mask):
+    '''
+    Generates an rle-encoding string which can be used in coco-json formatting. This appears to be much slower than rle_encode, but since the dataset must only be generated _once_ in most cases, it is probably worth to spend the extra generation time to have usable annotations.
+    \n Impelements top response of this thread: https://stackoverflow.com/questions/49494337/encode-numpy-array-using-uncompressed-rle-for-coco-dataset
+
+    PARAMETERS
+    ----------
+    mask : np array binary mask, where 1 is masked and 0 unmasked.
+
+    RETURNS
+    rle : dict in coco-rle format.
+    '''
+    rle = {
+        'counts': [],
+        'size': list(mask.shape)
+    }
+    counts = rle.get('counts')
+    for i, (value, elements) in enumerate(groupby(mask.ravel(order='F'))):
+        if i == 0 and value == 1:
+            counts.append(0)
+        counts.append(len(list(elements)))
+    return rle
