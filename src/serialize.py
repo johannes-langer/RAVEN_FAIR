@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 import numpy as np
 
 from const import META_STRUCTURE_FORMAT
-from api import get_real_bbox, get_mask, rle_encode
+from api import get_real_bbox, get_mask, coco_rle
 
 
 def n_tree_serialize(aot):
@@ -103,7 +103,7 @@ def dom_problem(instances, rule_groups):
                 entity_angle = entity.angle.get_value()
                 entity_l.set("bbox", json.dumps(entity_bbox))
                 entity_l.set("real_bbox", json.dumps(get_real_bbox(entity_bbox, entity_type, entity_size, entity_angle)))
-                entity_l.set("mask", rle_encode(get_mask(entity_bbox, entity_type, entity_size, entity_angle)))
+                entity_l.set("mask", coco_rle(get_mask(entity_bbox, entity_type, entity_size, entity_angle)))
                 entity_l.set("Type", str(entity.type.get_value_level()))
                 entity_l.set("Size", str(entity.size.get_value_level()))
                 entity_l.set("Color", str(entity.color.get_value_level()))
