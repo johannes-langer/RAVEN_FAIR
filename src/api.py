@@ -109,8 +109,8 @@ def rle_decode(mask_rle, shape):
 
 def coco_rle(mask):
     '''
-    Generates an rle-encoding string which can be used in coco-json formatting.
-    Impelements this: https://stackoverflow.com/questions/49494337/encode-numpy-array-using-uncompressed-rle-for-coco-dataset
+    Generates an rle-encoding string which can be used in coco-json formatting. This appears to be much slower than rle_encode, but since the dataset must only be generated _once_ in most cases, it is probably worth to spend the extra generation time to have usable annotations.
+    \n Impelements top response of this thread: https://stackoverflow.com/questions/49494337/encode-numpy-array-using-uncompressed-rle-for-coco-dataset
 
     PARAMETERS
     ----------
