@@ -72,7 +72,7 @@ def get_mask(entity_bbox, entity_type, entity_size, entity_angle):
     dummy_entity.size = Bunch(get_value = lambda : entity_size)
     dummy_entity.color = Bunch(get_value = lambda : 0)
     dummy_entity.angle = Bunch(get_value = lambda : entity_angle)
-    mask = render_entity(dummy_entity) // 255
+    mask = np.ceil(render_entity(dummy_entity) / 255).astype(int)
     return mask
 
 
