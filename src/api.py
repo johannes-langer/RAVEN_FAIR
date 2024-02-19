@@ -68,11 +68,11 @@ def get_real_bbox(entity_bbox, entity_type, entity_size, entity_angle):
 def get_mask(entity_bbox, entity_type, entity_size, entity_angle):
     dummy_entity = Bunch()
     dummy_entity.bbox = entity_bbox
-    dummy_entity.type = Bunch(get_value=lambda : entity_type)
-    dummy_entity.size = Bunch(get_value=lambda : entity_size)
-    dummy_entity.color = Bunch(get_value=lambda : 0)
-    dummy_entity.angle = Bunch(get_value=lambda : entity_angle)
-    mask = render_entity(dummy_entity) / 255
+    dummy_entity.type = Bunch(get_value = lambda : entity_type)
+    dummy_entity.size = Bunch(get_value = lambda : entity_size)
+    dummy_entity.color = Bunch(get_value = lambda : 0)
+    dummy_entity.angle = Bunch(get_value = lambda : entity_angle)
+    mask = render_entity(dummy_entity) // 255
     return mask
 
 
