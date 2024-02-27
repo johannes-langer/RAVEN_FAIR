@@ -9,6 +9,8 @@ from const import DEFAULT_WIDTH, IMAGE_SIZE
 from rendering import render_entity
 from itertools import groupby
 
+from pycocotools import mask as msk
+
 
 class Bunch:
     """Dummy class"""
@@ -107,14 +109,15 @@ def rle_decode(mask_rle, shape):
     return img.reshape(shape)
 
 
-def coco_rle(mask):
+def coco_rle(mask : np.ndarray, api : bool = False):
     '''
     Generates an rle-encoding string which can be used in coco-json formatting. This appears to be much slower than rle_encode, but since the dataset must only be generated _once_ in most cases, it is probably worth to spend the extra generation time to have usable annotations.
     \n Impelements top response of this thread: https://stackoverflow.com/questions/49494337/encode-numpy-array-using-uncompressed-rle-for-coco-dataset
 
     PARAMETERS
     ----------
-    mask : np array binary mask, where 1 is masked and 0 unmasked.
+    `mask : ndarray` np array binary mask, where 1 is masked and 0 unmasked.
+    `api : bool` use cocoapi version of the encoder
 
     RETURNS
     rle : dict in coco-rle format.
@@ -128,4 +131,5 @@ def coco_rle(mask):
         if i == 0 and value == 1:
             counts.append(0)
         counts.append(len(list(elements)))
-    return rle
+    
+    return rle if not api else msk.encode(np.asarray(mask, order='F'))

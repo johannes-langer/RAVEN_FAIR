@@ -74,7 +74,7 @@ def serialize_rules(rule_groups):
     return meta_matrix, np.bitwise_or.reduce(meta_matrix)
 
 
-def dom_problem(instances, rule_groups):
+def dom_problem(instances, rule_groups, use_api : bool = False):
     data = ET.Element("Data")
     panels = ET.SubElement(data, "Panels")
     for i in range(len(instances)):
@@ -103,7 +103,7 @@ def dom_problem(instances, rule_groups):
                 entity_angle = entity.angle.get_value()
                 entity_l.set("bbox", json.dumps(entity_bbox))
                 entity_l.set("real_bbox", json.dumps(get_real_bbox(entity_bbox, entity_type, entity_size, entity_angle)))
-                entity_l.set("mask", coco_rle(get_mask(entity_bbox, entity_type, entity_size, entity_angle)))
+                entity_l.set("mask", coco_rle(get_mask(entity_bbox, entity_type, entity_size, entity_angle), api=use_api))
                 entity_l.set("Type", str(entity.type.get_value_level()))
                 entity_l.set("Size", str(entity.size.get_value_level()))
                 entity_l.set("Color", str(entity.color.get_value_level()))

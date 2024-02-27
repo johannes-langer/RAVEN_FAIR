@@ -185,7 +185,7 @@ def separate(args, all_configs):
 
                 # with open("{}/{}/RAVEN_{}_{}.xml".format(args.save_dir, key, k, set_name), "w") as f:
                 with open('{}/{}/RAVEN_{}.xml'.format(args.save_dir, key, k), 'w') as f:
-                    dom = dom_problem(context + list(candidates), rule_groups)
+                    dom = dom_problem(context + list(candidates), rule_groups, use_api=args.cocoapi)
                     f.write(dom)
 
 
@@ -311,6 +311,8 @@ def main():
                                  help="the proportion of the size of test set")
     main_arg_parser.add_argument("--save", type=int, default=1,
                                  help="save the dataset")
+    main_arg_parser.add_argument('--cocoapi', type=bool, default=False,
+                                 help='Use pycocotools cocoapi to generate rle masks.')
     args = main_arg_parser.parse_args()
 
     args.save_dir = os.path.join(args.save_dir, 'RAVEN' + ('-F' if args.fair else ''))
