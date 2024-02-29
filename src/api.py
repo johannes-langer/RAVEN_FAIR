@@ -133,3 +133,17 @@ def coco_rle(mask : np.ndarray, api : bool = False):
         counts.append(len(list(elements)))
     
     return rle if not api else msk.encode(np.asarray(mask, order='F'))
+
+
+def poly_mask(mask : np.ndarray) -> np.ndarray:
+    '''
+    Find contours in image for detectron annotation.
+    Thanks @JT
+    '''
+    padded_label_array = np.pad(mask, pad_width = 1, mode = 'constant', constant_values = 0)
+    contour = measure.find_contours(padded_label_array)[0]
+    contour = np.flip(contour, axis = 1)
+    contour = contour - 1
+    contour[contour < 0] = 0
+
+    return contour.tolist()
