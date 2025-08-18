@@ -7,6 +7,7 @@ import os
 import random
 import sys
 
+from networkx import parse_graphml
 import numpy as np
 from tqdm import tqdm
 
@@ -295,7 +296,7 @@ def fair_raven(modifiable_attr, answer_AoT, rule_groups, context):
     return candidates, answers_imgs
 
 
-def main():
+def main(argv : list = None):
     main_arg_parser = argparse.ArgumentParser(description="parser for RAVEN")
     main_arg_parser.add_argument("--num-samples", type=int, default=10000,
                                  help="number of samples for each component configuration")
@@ -313,7 +314,7 @@ def main():
                                  help="save the dataset")
     main_arg_parser.add_argument('--cocoapi', type=bool, default=False,
                                  help='Use pycocotools cocoapi to generate rle masks.')
-    args = main_arg_parser.parse_args()
+    args = main_arg_parser.parse_args(argv) if argv else main_arg_parser.parse_args()
 
     args.save_dir = os.path.join(args.save_dir, 'RAVEN' + ('-F' if args.fair else ''))
 
