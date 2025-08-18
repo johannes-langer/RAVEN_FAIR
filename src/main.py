@@ -11,19 +11,19 @@ from networkx import parse_graphml
 import numpy as np
 from tqdm import tqdm
 
-from build_tree import (build_center_single, build_distribute_four,
+from .build_tree import (build_center_single, build_distribute_four,
                         build_distribute_nine,
                         build_in_center_single_out_center_single,
                         build_in_distribute_four_out_center_single,
                         build_left_center_single_right_center_single,
                         build_up_center_single_down_center_single)
-from const import IMAGE_SIZE, RULE_ATTR
-from rendering import (generate_matrix, generate_matrix_answer, imsave, imshow,
+from .const import IMAGE_SIZE, RULE_ATTR
+from .rendering import (generate_matrix, generate_matrix_answer, imsave, imshow,
                        render_panel)
-from Rule import Rule_Wrapper
-from sampling import sample_attr, sample_attr_avail, sample_rules
-from serialize import dom_problem, serialize_aot, serialize_rules
-from solver import solve
+from .Rule import Rule_Wrapper
+from .sampling import sample_attr, sample_attr_avail, sample_rules
+from .serialize import dom_problem, serialize_aot, serialize_rules
+from .solver import solve
 
 import time
 if os.name == 'nt':

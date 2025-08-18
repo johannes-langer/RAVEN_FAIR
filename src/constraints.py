@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from const import (ANGLE_MAX, ANGLE_MIN, COLOR_MAX, COLOR_MIN, NUM_MAX,
+from .const import (ANGLE_MAX, ANGLE_MIN, COLOR_MAX, COLOR_MIN, NUM_MAX,
                    NUM_MIN, SIZE_MAX, SIZE_MIN, TYPE_MAX, TYPE_MIN, UNI_MAX,
                    UNI_MIN)
 

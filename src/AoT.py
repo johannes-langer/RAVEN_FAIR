@@ -9,8 +9,8 @@ try:
 except:
     from scipy.special import comb
 
-from Attribute import Angle, Color, Number, Position, Size, Type, Uniformity
-from constraints import rule_constraint
+from .Attribute import Angle, Color, Number, Position, Size, Type, Uniformity
+from .constraints import rule_constraint
 
 
 class AoTNode(object):

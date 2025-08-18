@@ -6,8 +6,8 @@ import xml.etree.ElementTree as ET
 
 import numpy as np
 
-from const import META_STRUCTURE_FORMAT
-from api import get_real_bbox, get_mask, coco_rle, poly_mask
+from .const import META_STRUCTURE_FORMAT
+from .api import get_real_bbox, get_mask, coco_rle, poly_mask
 
 
 def n_tree_serialize(aot):

@@ -2,14 +2,15 @@
 
 
 import xml.etree.ElementTree as ET
+from itertools import groupby
 
 import cv2
 import numpy as np
-from const import DEFAULT_WIDTH, IMAGE_SIZE
-from rendering import render_entity
-from itertools import groupby
-
 from pycocotools import mask as msk
+from skimage import measure
+
+from .const import DEFAULT_WIDTH, IMAGE_SIZE
+from .rendering import render_entity
 
 
 class Bunch:

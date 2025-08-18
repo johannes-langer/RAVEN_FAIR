@@ -5,8 +5,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from AoT import Root
-from const import CENTER, DEFAULT_WIDTH, IMAGE_SIZE
+from .AoT import Root
+from .const import CENTER, DEFAULT_WIDTH, IMAGE_SIZE
 
 
 def imshow(array):

@@ -3,7 +3,7 @@
 
 import numpy as np
 
-from const import (ANGLE_MAX, ANGLE_MIN, ANGLE_VALUES, COLOR_MAX, COLOR_MIN,
+from .const import (ANGLE_MAX, ANGLE_MIN, ANGLE_VALUES, COLOR_MAX, COLOR_MIN,
                    COLOR_VALUES, NUM_MAX, NUM_MIN, NUM_VALUES, SIZE_MAX,
                    SIZE_MIN, SIZE_VALUES, TYPE_MAX, TYPE_MIN, TYPE_VALUES,
                    UNI_MAX, UNI_MIN, UNI_VALUES)

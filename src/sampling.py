@@ -7,8 +7,8 @@ try:
 except:
     from scipy.special import comb
 
-from const import MAX_COMPONENTS, RULE_ATTR
-from Rule import Rule_Wrapper
+from .const import MAX_COMPONENTS, RULE_ATTR
+from .Rule import Rule_Wrapper
 
 
 def sample_rules():
