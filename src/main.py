@@ -49,6 +49,8 @@ else:
         except Exception as e:
             raise e
             signal.signal(signal.SIGALRM, signal.SIG_IGN)
+        finally:
+            signal.alarm(0)
 
 
 def merge_component(dst_aot, src_aot, component_idx):
